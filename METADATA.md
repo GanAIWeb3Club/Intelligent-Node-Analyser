@@ -23,10 +23,10 @@ Check here [gaianet.api.http](/api/gaianet.api.http).
 
 ### Node for experiments
 
-Server: ssh root@62.169.21.193
-Password: secret
+Server: ssh root@62.169.21.193  
+Password: secret  
 
-Grafana: <http://62.169.21.193:3000/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=1m>
+Grafana: <http://62.169.21.193:3000/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=1m>  
 Creds: admin/3HfebQFrzhM5QgA
 
 Gaianet node: `"address": "0xe81b08d4b69efb83ce47c14de9947d38115187f4"`

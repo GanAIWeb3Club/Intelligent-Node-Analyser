@@ -14,7 +14,7 @@ A cutting-edge solution to monitor and analyze blockchain nodes running on VPS s
 - **AI-Powered Insights**  
   Leverages the **Eliza** framework to summarize logs and API responses into meaningful, user-friendly insights.  
 - **Secure Data Handling**  
-  All data is securely fetched, processed, and fed into Gaianet nodes for decentralized storage and query.  
+  All data is securely fetched, processed, and fed into Gaianet nodes for decentralized processing by LLM models.  
 - **Telegram Bot Integration**  
   Seamless interaction with users to deliver node reports, alerts, and AI-suggested actions directly in Telegram.  
 
@@ -25,7 +25,7 @@ A cutting-edge solution to monitor and analyze blockchain nodes running on VPS s
 1. **Node Integration**  
    The bot connects to blockchain nodes via APIs or log files on VPS servers.  
 2. **Data Processing**  
-   Logs and status data are sent to Gaianet nodes for decentralized processing.  
+   Logs and status data are sent to Gaianet nodes for decentralized processing by LLM models.  
 3. **AI Analysis**  
    The **Eliza AI agent** processes the data, providing contextual summaries and actionable insights.  
 4. **Telegram Reporting**  
