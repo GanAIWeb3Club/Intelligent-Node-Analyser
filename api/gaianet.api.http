@@ -1,0 +1,43 @@
+### Conversation API call to Gaia Node
+POST https://0x1dc779a3fe48a325674541ef8394c16c8647486d.us.gaianet.network/v1/chat/completions
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36
+
+{
+  "model": "Qwen2-0.5B-Instruct-Q5_K_M",
+  "messages": [ 
+    {
+      "role": "user",
+      "content": "are there any buses or metro available in Paris?"
+    }
+  ],
+  "stream": false,
+  "stream_options": {
+    "include_usage": false
+  },
+  "user": "db8c8a7f-d127-47d6-ae10-59e1cedf1ab0"
+}
+
+# Response example
+# {
+#   "id": "db8c8a7f-d127-47d6-ae10-59e1cedf1ab0",
+#   "object": "chat.completion",
+#   "created": 1733689921,
+#   "model": "Qwen2-0.5B-Instruct-Q5_K_M",
+#   "choices": [
+#     {
+#       "index": 0,
+#       "message": {
+#         "content": ":\nYes, there are buses and metro available in Paris.",
+#         "role": "assistant"
+#       },
+#       "finish_reason": "stop",
+#       "logprobs": null
+#     }
+#   ],
+#   "usage": {
+#     "prompt_tokens": 362,
+#     "completion_tokens": 13,
+#     "total_tokens": 375
+#   }
+# }
+

@@ -1,0 +1,74 @@
+### Elixir Testnet validator node
+@validator = 0x8C4306f73c61b1046fCaC1B6D9365D633D4D11D8
+GET https://api.testnet-3.elixir.xyz/validators/{{validator}}
+
+# Response example
+# {
+#   "validator": {
+#     "address": "0x8C4306f73c61b1046fCaC1B6D9365D633D4D11D8",
+#     "display_name": "HamsterClub",
+#     "beneficiary": "0x4Cb609Ad1d0E501Ff82DBA1B468fFf79f7d01DCc",
+#     "app_version": "3.5.7",
+#     "jailed": false,
+#     "total_delegated": "6102020655837900000000",
+#     "delegate_count": "2",
+#     "uptime_day": 1.0,
+#     "uptime_week": 1.0,
+#     "uptime_month": 0.9999327022297995,
+#     "apy": 0.23,
+#     "online": true,
+#     "latitude": 48.98,
+#     "longitude": 8.45
+#   }
+# }
+
+### Glacier Testnet validator node
+@nodeid = 0xdC34d3eDb2B48bdc7E63b0BbcBfD11090229798b
+GET https://testnet.nodes.glacier.io/api/address/{{nodeid}}
+
+# Response example
+# {
+#   "id": "15861",
+#   "address": "0xdC34d3eDb2B48bdc7E63b0BbcBfD11090229798b",
+#   "delegations": 0,
+#   "verifications": 2,
+#   "registered_at": 0,
+#   "last_submit_at": 1733326736,
+#   "last_heartbeat_at": 1733491890,
+#   "status": 1
+# }
+
+### Nesa Testnet validator node
+@nesa_node = BjcBU3JMmUEBNdnYRJSmrz81WF2FHLfemYKpRTFysh2C
+
+GET https://api-test.nesa.ai/nodes/{{nesa_node}}/general
+
+# Response example
+# {
+#   "node": {
+#     "_id": "6747bb6b3242886525af9046",
+#     "node_id": "BjcBU3JMmUEBNdnYRJSmrz81WF2FHLfemYKpRTFysh2C",
+#     "email": "killa33crypt@gmail.com",
+#     "hostname": "localhost",
+#     "ip": "109.199.104.126",
+#     "ip_history": [
+#       "109.199.104.126"
+#     ],
+#     "moniker": "HamsterClubSergio01",
+#     "public_key": "0298da142f9f31ea0a92e81f098ee1740dcc8c7f18137ede913f7b168e1c792e27",
+#     "referrer": "nesa1fu62jm4k5va0acnhd55gfflfh7utkzeeplrnnn",
+#     "specs": {
+#       "cpu": [
+#         "AMD EPYC 7282 16-Core Processor"
+#       ],
+#       "cores": 8,
+#       "gpu": [
+#         "NA"
+#       ],
+#       "gpu_count": 0,
+#       "ram": "23Gi",
+#       "vram": " MB"
+#     },
+#     "status": 1
+#   }
+# }
