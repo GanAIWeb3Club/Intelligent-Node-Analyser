@@ -60,6 +60,16 @@ graph TD;
 
 ---
 
+### Prerequisites
+
+- [Python 2.7+](https://www.python.org/downloads/)
+- [Node.js 23+](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- [pnpm](https://pnpm.io/installation)
+
+> **Note for Windows Users:** [WSL 2](https://learn.microsoft.com/en-us/windows/wsl/install-manual) is required.
+
+---
+
 ## 🏗️ Architecture Overview
 
 1. **Blockchain Nodes on VPS**  
@@ -80,14 +90,14 @@ To run the project locally:
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/yourusername/intelligent-node-analyzer.git
+   git clone https://github.com/GanAIWeb3Club/Intelligent-Node-Analyser.git
    cd intelligent-node-analyzer
    ```
 
 2. Install dependencies:
 
    ```bash
-   npm install
+   cd alberta & pnpm install
    ```
 
 3. Configure your environment:
@@ -96,7 +106,7 @@ To run the project locally:
 4. Start the bot:
 
    ```bash
-   npm start
+   pnpm start
    ```
 
 ---
