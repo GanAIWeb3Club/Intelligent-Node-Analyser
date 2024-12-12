@@ -1,0 +1,10 @@
+*.ts
+!index.ts
+!alberta.ts
+.env
+node_modules
+data/
+content_cache/
+dist/
+
+db.sqlite
