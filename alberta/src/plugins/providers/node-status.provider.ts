@@ -1,6 +1,7 @@
 import { Memory, Provider, IAgentRuntime, State } from "@ai16z/eliza";
 import axios from "axios";
 
+// TODO: Further splitting of actions and providers
 export class ApiJsonDataProvider implements Provider {
   async get(
     _runtime: IAgentRuntime,
@@ -12,7 +13,6 @@ export class ApiJsonDataProvider implements Provider {
     console.log("[ApiJsonDataProvider] Starting the get method...");
 
     const conversationMemoryManager = _runtime.getMemoryManager("conversation")!;
-    console.log("[ApiJsonDataProvider] Conversation memory manager:", conversationMemoryManager);
     const conversationMemories = await conversationMemoryManager.getMemoriesByRoomIds({
       roomIds: [_message.roomId]
     });
