@@ -80,6 +80,9 @@ importers:
       amqplib:
         specifier: ^0.10.5
         version: 0.10.5
+      axios:
+        specifier: ^1.5.0
+        version: 1.7.9
       better-sqlite3:
         specifier: ^11.5.0
         version: 11.7.0

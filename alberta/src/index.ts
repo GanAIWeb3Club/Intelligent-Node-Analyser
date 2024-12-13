@@ -15,6 +15,7 @@ import {
     ICacheManager,
     IDatabaseAdapter,
     IDatabaseCacheAdapter,
+    MemoryManager,
     ModelProviderName,
     elizaLogger,
     settings,
@@ -331,7 +332,7 @@ export function createAgent(
 
     nodePlugin ??= createNodePlugin();
 
-    return new AgentRuntime({
+  return new AgentRuntime({
         databaseAdapter: db,
         token,
         modelProvider: character.modelProvider,
@@ -383,6 +384,13 @@ async function startAgent(character: Character, directClient) {
         const runtime = createAgent(character, db, cache, token);
 
         await runtime.initialize();
+
+        runtime.registerMemoryManager(
+          new MemoryManager({
+            runtime: runtime,
+            tableName: "conversation",
+          })
+        );
 
         const clients = await initializeClients(character, runtime);
 
