@@ -72,3 +72,22 @@ Look for the chat object in the response to get the id.
 ## Target Nodes
 
 Check API requests in [target.nodes.http](/api/target.nodes.http).
+
+## SQL Lite Database
+
+### Local testing
+
+pnpm rebuild better-sqlite3
+
+### Troubleshooting
+
+Reinstall db in case of ERROR:
+
+```bash
+....at initializeDatabase (..../Documents/poland/Intelligent-Node-Analyser/alberta/src/index.ts:210:46) {
+  code: 'ERR_DLOPEN_FAILED'
+}
+ ⛔ ERRORS
+   Error starting agents: 
+   {"code":"ERR_DLOPEN_FAILED"}
+```

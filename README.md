@@ -97,7 +97,7 @@ To run the project locally:
 2. Install dependencies:
 
    ```bash
-   cd alberta & pnpm install
+   cd alberta/ && pnpm build && pnpm install
    ```
 
 3. Configure your environment:
