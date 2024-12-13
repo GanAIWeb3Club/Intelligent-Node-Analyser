@@ -47,6 +47,19 @@ graph TD;
 
 ---
 
+## 💡 Use case
+
+Open the bot and drop the node URL.  
+Follow the example chat message:
+
+```bash
+Check the status of my lovely elixir node https://api.testnet-3.elixir.xyz/validators/0x8C4306f73c61b1046fCaC1B6D9365D633D4D11D8
+```
+
+![Alt text](doc/pics/how-to-use-bot.png)
+
+---
+
 ## 🛠️ Tools & Technologies
 
 - **Telegram Bot API**  
@@ -132,6 +145,6 @@ To run the project locally:
 Have questions or want to collaborate?
 
 - **Team Name:** GanAIWeb3Club
-- **Email:** skrypnychenkoandrii808@gmail.com,Tiunow@gmail.com, cryptospecura@gmail.com, grossbel13@gmail.com. 
+- **Email:** <skrypnychenkoandrii808@gmail.com>,<Tiunow@gmail.com>, <cryptospecura@gmail.com>, <grossbel13@gmail.com>.
 
 ---
