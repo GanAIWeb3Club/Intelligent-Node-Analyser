@@ -5,9 +5,17 @@ import {
   HandlerCallback,
   Validator,
 } from "@ai16z/eliza";
+import { Memory } from "@ai16z/eliza";
 
+// TODO: Split the action
 interface ApiUrlResponse {
   url: string;
+}
+
+function extractUrl(input: string): string | null {
+  const urlRegex = /https?:\/\/[^\s/$.?#].[^\s]*/gi; // Regex to match URLs
+  const match = input.match(urlRegex); // Find matches in the input string
+  return match ? match[0] : null; // Return the first match or null if none found
 }
 
 export class GetApiUrlAction implements Action {
@@ -26,7 +34,7 @@ export class GetApiUrlAction implements Action {
       {
         user: "{{user1}}",
         content: {
-          text: "Here is my node API URL?",
+          text: "Here is my node API URL",
         },
       },
       {
@@ -76,9 +84,31 @@ export class GetApiUrlAction implements Action {
     let apiUrl: string | null = null;
 
     const conversationMemoryManager = _runtime.getMemoryManager("conversation")!;
+    
+    if (typeof _message.content.text === 'string') {
+      const userEndpoint = extractUrl(_message.content.text);
+      console.log("[GetApiUrlAction] user_endpoint", userEndpoint);
+      apiUrl = userEndpoint;
+      conversationMemoryManager.createMemory(
+        {
+          "roomId": _message.roomId,
+          "userId": _message.userId,
+          "agentId": _message.agentId,
+          "content": {
+            "apiUrl": apiUrl,
+            "text": _message.content.text,
+          },
+        },
+        true
+      );
+    } else {
+      console.log("[GetApiUrlAction] _message.content.text is not a string");
+    }
+
     const conversationMemories = await conversationMemoryManager.getMemoriesByRoomIds({
       roomIds: [_message.roomId]
     });
+
 
     console.log("[GetApiUrlAction] conversationMemories", conversationMemories);
 
