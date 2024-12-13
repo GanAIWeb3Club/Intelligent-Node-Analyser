@@ -103,6 +103,12 @@ To run the project locally:
 3. Configure your environment:
    - Add your Telegram bot token, API keys, and Gaianet credentials in `.env`.
 
+   ```bash
+   # Gaianet Configuration
+   GAIANET_MODEL=qwen7b
+   GAIANET_SERVER_URL=https://qwen7b.us.gaianet.network/v1
+   ```
+
 4. Start the bot:
 
    ```bash
@@ -111,15 +117,9 @@ To run the project locally:
 
 ---
 
-## 🎥 Demo  
-
-👉 Watch our 5-minute demo video [here](#link-to-demo).  
-
----
-
 ## 🤝 Hackathon Tracks & Partner Tools
 
-- **Track:** Agents Integrations  
+- **Track:** Best agent integration  
 - **Tools:**  
   - [Eliza Framework](https://github.com/ai16z)  
   - [Gaianet Blockchain](https://docs.gaianet.ai)  
@@ -131,7 +131,7 @@ To run the project locally:
 
 Have questions or want to collaborate?
 
-- **Team Name:** AI Node Wizards  
-- **Email:** yourteamemail@example.com  
+- **Team Name:** GanAIWeb3Club
+- **Email:** skrypnychenkoandrii808@gmail.com,Tiunow@gmail.com, cryptospecura@gmail.com, grossbel13@gmail.com. 
 
 ---
