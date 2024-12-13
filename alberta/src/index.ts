@@ -1,4 +1,3 @@
-import { PostgresDatabaseAdapter } from "@ai16z/adapter-postgres";
 import { SqliteDatabaseAdapter } from "@ai16z/adapter-sqlite";
 import { AutoClientInterface } from "@ai16z/client-auto";
 import { DirectClientInterface } from "@ai16z/client-direct";
@@ -10,44 +9,29 @@ import {
     AgentRuntime,
     CacheManager,
     Character,
-    Clients,
     DbCacheAdapter,
     FsCacheAdapter,
     IAgentRuntime,
     ICacheManager,
     IDatabaseAdapter,
     IDatabaseCacheAdapter,
+    MemoryManager,
     ModelProviderName,
     elizaLogger,
     settings,
     stringToUuid,
     validateCharacterConfig,
 } from "@ai16z/eliza";
-import { zgPlugin } from "@ai16z/plugin-0g";
-import { goatPlugin } from "@ai16z/plugin-goat";
 import { bootstrapPlugin } from "@ai16z/plugin-bootstrap";
-// import { buttplugPlugin } from "@ai16z/plugin-buttplug";
-// import {
-//     coinbaseCommercePlugin,
-//     coinbaseMassPaymentsPlugin,
-//     tradePlugin,
-//     tokenContractPlugin,
-//     webhookPlugin,
-// } from "@ai16z/plugin-coinbase";
-import { confluxPlugin } from "@ai16z/plugin-conflux";
-import { imageGenerationPlugin } from "@ai16z/plugin-image-generation";
-import { evmPlugin } from "@ai16z/plugin-evm";
 import { createNodePlugin } from "@ai16z/plugin-node";
-import { solanaPlugin } from "@ai16z/plugin-solana";
-// import { aptosPlugin, TransferAptosToken } from "@ai16z/plugin-aptos";
-// import { flowPlugin } from "@ai16z/plugin-flow";
-import { teePlugin } from "@ai16z/plugin-tee";
 import Database from "better-sqlite3";
 import fs from "fs";
 import path from "path";
 import readline from "readline";
 import { fileURLToPath } from "url";
 import yargs from "yargs";
+import {NodeApiStatusPlugin} from "./plugins/nodes.plugin.ts"
+
 
 import { albertaCharacter } from "./alberta.ts";
 
@@ -270,41 +254,16 @@ export function getTokenForProvider(
                 character.settings?.secrets?.VOLENGINE_API_KEY ||
                 settings.VOLENGINE_API_KEY
             );
-        // case ModelProviderName.HYPERBOLIC:
-        //     return (
-        //         character.settings?.secrets?.HYPERBOLIC_API_KEY ||
-        //         settings.HYPERBOLIC_API_KEY
-        //     );
     }
 }
 
 function initializeDatabase(dataDir: string) {
-    if (process.env.POSTGRES_URL) {
-        elizaLogger.info("Initializing PostgreSQL connection...");
-        const db = new PostgresDatabaseAdapter({
-            connectionString: process.env.POSTGRES_URL,
-            parseInputs: true,
-        });
-
-        // Test the connection
-        db.init()
-            .then(() => {
-                elizaLogger.success(
-                    "Successfully connected to PostgreSQL database"
-                );
-            })
-            .catch((error) => {
-                elizaLogger.error("Failed to connect to PostgreSQL:", error);
-            });
-
-        return db;
-    } else {
+        elizaLogger.info("Launching SQL Lite Database");
         const filePath =
             process.env.SQLITE_FILE ?? path.resolve(dataDir, "db.sqlite");
         // ":memory:";
         const db = new SqliteDatabaseAdapter(new Database(filePath));
         return db;
-    }
 }
 
 export async function initializeClients(
@@ -373,7 +332,7 @@ export function createAgent(
 
     nodePlugin ??= createNodePlugin();
 
-    return new AgentRuntime({
+  return new AgentRuntime({
         databaseAdapter: db,
         token,
         modelProvider: character.modelProvider,
@@ -381,45 +340,7 @@ export function createAgent(
         character,
         plugins: [
             bootstrapPlugin,
-            getSecret(character, "CONFLUX_CORE_PRIVATE_KEY")
-                ? confluxPlugin
-                : null,
-            nodePlugin,
-            getSecret(character, "SOLANA_PUBLIC_KEY") ||
-            (getSecret(character, "WALLET_PUBLIC_KEY") &&
-                !getSecret(character, "WALLET_PUBLIC_KEY")?.startsWith("0x"))
-                ? solanaPlugin
-                : null,
-            getSecret(character, "EVM_PRIVATE_KEY") ||
-            (getSecret(character, "WALLET_PUBLIC_KEY") &&
-                !getSecret(character, "WALLET_PUBLIC_KEY")?.startsWith("0x"))
-                ? evmPlugin
-                : null,
-            getSecret(character, "ZEROG_PRIVATE_KEY") ? zgPlugin : null,
-            // getSecret(character, "COINBASE_COMMERCE_KEY")
-            //     ? coinbaseCommercePlugin
-            //     : null,
-            getSecret(character, "FAL_API_KEY") ||
-            getSecret(character, "OPENAI_API_KEY") ||
-            getSecret(character, "HEURIST_API_KEY")
-                ? imageGenerationPlugin
-                : null,
-            // ...(getSecret(character, "COINBASE_API_KEY") &&
-            // getSecret(character, "COINBASE_PRIVATE_KEY")
-            //     ? [coinbaseMassPaymentsPlugin, tradePlugin, tokenContractPlugin, coinbaseCommercePlugin]
-            //     : []),
-            // getSecret(character, "COINBASE_API_KEY") &&
-            // getSecret(character, "COINBASE_PRIVATE_KEY") &&
-            // getSecret(character, "COINBASE_NOTIFICATION_URI")
-            //     ? webhookPlugin
-            //     : null,
-            getSecret(character, "WALLET_SECRET_SALT") ? teePlugin : null,
-            getSecret(character, "ALCHEMY_API_KEY") ? goatPlugin : null,
-            // getSecret(character, "FLOW_ADDRESS") &&
-            // getSecret(character, "FLOW_PRIVATE_KEY")
-            //     ? flowPlugin
-            //     : null,
-            // getSecret(character, "APTOS_PRIVATE_KEY") ? aptosPlugin : null,
+            NodeApiStatusPlugin
         ].filter(Boolean),
         providers: [],
         actions: [],
@@ -463,6 +384,13 @@ async function startAgent(character: Character, directClient) {
         const runtime = createAgent(character, db, cache, token);
 
         await runtime.initialize();
+
+        runtime.registerMemoryManager(
+          new MemoryManager({
+            runtime: runtime,
+            tableName: "conversation",
+          })
+        );
 
         const clients = await initializeClients(character, runtime);
 
